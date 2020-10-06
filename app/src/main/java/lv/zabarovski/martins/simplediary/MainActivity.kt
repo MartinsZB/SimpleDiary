@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
             if (position == 0){
                 tab.text = getString(R.string.diary_list)
             }else if (position == 1){
-                tab.text = getString(R.string.diary_add)
+                tab.text = getString(R.string.timer)
             }
 
         }.attach()

@@ -7,3 +7,4 @@ data class StoryDataItem(
     val date: LocalDateTime,
     val note: String
 )
+

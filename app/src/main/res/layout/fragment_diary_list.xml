@@ -14,10 +14,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/newStoryButton"
         app:spanCount="2"
         tools:listitem="@layout/item_note" />
 
+    <Button
+        android:id="@+id/newStoryButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/new_story"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

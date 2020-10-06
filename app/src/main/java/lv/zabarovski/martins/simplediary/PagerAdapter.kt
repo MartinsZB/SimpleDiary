@@ -11,7 +11,7 @@ class PagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity)
     }
 
     override fun createFragment(position: Int): Fragment {
-        return if (position == 0) DiaryList() else DiaryAdd()
+        return if (position == 0) DiaryList() else Timer()
     }
 
     companion object {

@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 
-class DiaryAdd : Fragment() {
+class Timer : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,7 +19,7 @@ class DiaryAdd : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_diary_add, container, false)
+        return inflater.inflate(R.layout.fragment_timer, container, false)
     }
 
 }

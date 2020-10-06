@@ -7,7 +7,10 @@
     <string name="diaryDate">Diary Date</string>
     <string name="story_title">Story Title</string>
     <string name="story">Story</string>
-    <string name="save_story">Save story</string>
+    <string name="save_story">Add story</string>
     <string name="story_title_text">My story of the day</string>
     <string name="story_title_hint">Enter the name of your story</string>
+    <string name="timer">Timer</string>
+    <string name="new_story">Add new Story</string>
+    <string name="update_story">Update Story</string>
 </resources>
