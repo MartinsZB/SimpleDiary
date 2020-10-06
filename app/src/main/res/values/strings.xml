@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Simple Diary</string>
+    <string name="diary_list">Diary List</string>
+    <string name="diary_add">Diary Add</string>
+    <string name="itemName">Item name</string>
+    <string name="diary_note_text">Note text</string>
+    <string name="diaryDate">Diary Date</string>
+    <string name="story_title">Story Title</string>
+    <string name="story">Story</string>
+    <string name="save_story">Save story</string>
+    <string name="story_title_text">My story of the day</string>
+    <string name="story_title_hint">Enter the name of your story</string>
 </resources>
