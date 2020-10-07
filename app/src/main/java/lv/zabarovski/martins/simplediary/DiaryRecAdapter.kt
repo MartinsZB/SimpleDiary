@@ -1,20 +1,13 @@
 package lv.zabarovski.martins.simplediary
 
 import android.app.Activity
-import android.app.PendingIntent.getActivity
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat.getSystemService
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_add_story.view.*
 import kotlinx.android.synthetic.main.item_note.view.*
-import java.security.AccessController.getContext
+import lv.zabarovski.martins.simplediary.Dbase.StoryDataItem
+import java.text.DateFormat
 import java.time.format.DateTimeFormatter
 
 class DiaryRecAdapter (
@@ -36,7 +29,7 @@ class DiaryRecAdapter (
         val activity = holder.itemView.context as Activity
         holder.itemView.itemTitleNote.text = item.title
         holder.itemView.itemTextNote.text = item.note
-        holder.itemView.itemDateNote.text = item.date.format(DateTimeFormatter.ISO_LOCAL_DATE).toString()
+        holder.itemView.itemDateNote.text = DateFormat.getDateInstance().format(item.date)
 
         holder.itemView.setOnClickListener{
             listener.itemClicked(stories[position])

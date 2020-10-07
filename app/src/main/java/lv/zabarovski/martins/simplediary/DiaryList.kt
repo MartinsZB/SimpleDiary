@@ -3,26 +3,27 @@ package lv.zabarovski.martins.simplediary
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.ActionMode
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.fragment.app.Fragment
 import java.time.LocalDateTime
-import androidx.fragment.app.*
 import kotlinx.android.synthetic.main.fragment_diary_list.*
+import lv.zabarovski.martins.simplediary.Dbase.App
+import lv.zabarovski.martins.simplediary.Dbase.Database
+import lv.zabarovski.martins.simplediary.Dbase.Database.getInstance
+import lv.zabarovski.martins.simplediary.Dbase.StoryDataItem
+import java.util.*
 
 val stories = mutableListOf(
-    StoryDataItem("One", LocalDateTime.now(),"This is first note"),
-    StoryDataItem("Two", LocalDateTime.now(),"This is Second note"),
-    StoryDataItem("Three", LocalDateTime.now(),"This is third note")
+    StoryDataItem("One", System.currentTimeMillis(),"This is first note"),
+    StoryDataItem("Two", System.currentTimeMillis(),"This is Second note"),
+    StoryDataItem("Three", System.currentTimeMillis(),"This is third note")
 )
 
 class DiaryList : Fragment(), AdapterClickListener {
 
-
+    private val db get() = Database.getInstance(requireActivity())
     private lateinit var adapter: DiaryRecAdapter
 
     override fun onCreateView(
@@ -37,6 +38,7 @@ class DiaryList : Fragment(), AdapterClickListener {
         super.onViewCreated(view, savedInstanceState)
         adapter = DiaryRecAdapter(this,stories)
         mainDiaryItems.adapter = adapter
+        stories.addAll(db.diaryStoriesDao().getAllStories())
         newStoryButton.setOnClickListener {addStory()}
     }
     private fun addStory() {
@@ -54,7 +56,8 @@ class DiaryList : Fragment(), AdapterClickListener {
             data?.let{
                 val title = data.getStringExtra(GET_STORY_TITLE)
                 val story = data.getStringExtra(GET_STORY_TEXT)
-                stories.add(StoryDataItem(title.toString(), LocalDateTime.now(),story.toString()))
+
+                stories.add(StoryDataItem(title.toString(), System.currentTimeMillis(),story.toString()))
             }
             adapter.notifyDataSetChanged()
         }
@@ -69,7 +72,7 @@ class DiaryList : Fragment(), AdapterClickListener {
             putExtra(SET_STORY_TITLE, story.title)
             putExtra(SET_STORY_TEXT, story.note)
         }
-        
+
         startActivityForResult(intent, EDIT_REQUEST_CODE)
 
     }
