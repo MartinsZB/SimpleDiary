@@ -49,16 +49,4 @@ class DiaryRecAdapter (
 
 
     }
-//    private fun editStory(context: Activity, title: String, story: String) {
-//
-//        val intent = Intent(context, AddStory::class.java).apply{}
-//        ((Activity) context).startActivityForResult(intent, REPLAY_REQUEST_CODE)
-//    }
-//    companion object {
-//        const val REPLAY_REQUEST_CODE = 124
-//        const val SEND_STORY_TITLE = "lv.zabarovski.martins.TITLE_SEND"
-//        const val GET_STORY_TITLE = "lv.zabarovski.martins.TITLE_REPLY"
-//        const val SEND_STORY_TEXT = "lv.zabarovski.martins.STORY_SEND"
-//        const val GET_STORY_TEXT = "lv.zabarovski.martins.STORY_REPLY"
-//    }
 }

@@ -58,13 +58,6 @@ class DiaryList : Fragment(), AdapterClickListener {
             }
             adapter.notifyDataSetChanged()
         }
-//        else if(requestCode == EDIT_REQUEST_CODE && resultCode == Activity.RESULT_OK){
-//            data?.let{
-//                val newTitle = data.getStringExtra(GET_STORY_TITLE)
-//                val story = data.getStringExtra(GET_STORY_TEXT)
-//                stories.
-//            }
-//        }
     }
 
 
@@ -76,8 +69,7 @@ class DiaryList : Fragment(), AdapterClickListener {
             putExtra(SET_STORY_TITLE, story.title)
             putExtra(SET_STORY_TEXT, story.note)
         }
-
-//        stories.removeAt(position)
+        
         startActivityForResult(intent, EDIT_REQUEST_CODE)
 
     }
