@@ -15,4 +15,5 @@
     <string name="new_story">Pievienot piezīmi</string>
     <string name="update_story">Saglabāt piezīmi</string>
     <string name="timer_text">Taimera funkcijas vēl nav ieviestas</string>
+    <string name="send_email">Sūtīt e-pastu</string>
 </resources>

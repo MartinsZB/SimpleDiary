@@ -2,9 +2,12 @@ package lv.zabarovski.martins.simplediary
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_add_story.*
 import lv.zabarovski.martins.simplediary.Dbase.Database
 import lv.zabarovski.martins.simplediary.Dbase.StoryDataItem
@@ -53,5 +56,26 @@ class AddStory : AppCompatActivity(){
                 finish()
             }
         }
+        val fab: View = findViewById(R.id.fab)
+        fab.setOnClickListener {
+//            Toast.makeText(this,"Here we are",Toast.LENGTH_LONG).show()
+            val subject = storyTitle.text.toString()
+            val content = storyContent.text.toString()
+            sendEmail(subject,content)
+        }
+
     }
+    private fun sendEmail(subject: String, content: String) {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            //putExtra(Intent.EXTRA_EMAIL, arrayOf(emailAddressView.text.toString()))
+            putExtra(Intent.EXTRA_SUBJECT, subject)
+            putExtra(Intent.EXTRA_TEXT, content)
+        }
+
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        }
+    }
+
 }
