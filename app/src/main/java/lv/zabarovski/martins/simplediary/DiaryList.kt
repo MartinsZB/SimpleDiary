@@ -7,22 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import java.time.LocalDateTime
 import kotlinx.android.synthetic.main.fragment_diary_list.*
-import lv.zabarovski.martins.simplediary.Dbase.App
 import lv.zabarovski.martins.simplediary.Dbase.Database
-import lv.zabarovski.martins.simplediary.Dbase.Database.getInstance
 import lv.zabarovski.martins.simplediary.Dbase.StoryDataItem
-import java.util.*
 
-val stories = mutableListOf(
-    StoryDataItem("One", System.currentTimeMillis(),"This is first note"),
-    StoryDataItem("Two", System.currentTimeMillis(),"This is Second note"),
-    StoryDataItem("Three", System.currentTimeMillis(),"This is third note")
-)
 
 class DiaryList : Fragment(), AdapterClickListener {
-
+    private val stories = mutableListOf<StoryDataItem>()
     private val db get() = Database.getInstance(requireActivity())
     private lateinit var adapter: DiaryRecAdapter
 
@@ -36,14 +27,15 @@ class DiaryList : Fragment(), AdapterClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = DiaryRecAdapter(this,stories)
+        adapter = DiaryRecAdapter(this, stories)
         mainDiaryItems.adapter = adapter
         stories.addAll(db.diaryStoriesDao().getAllStories())
-        newStoryButton.setOnClickListener {addStory()}
+        newStoryButton.setOnClickListener { addStory() }
     }
+
     private fun addStory() {
 
-        val intent = Intent(getActivity(), AddStory::class.java).apply{
+        val intent = Intent(getActivity(), AddStory::class.java).apply {
             putExtra(REQUEST_CODE, "123")
         }
         startActivityForResult(intent, ADD_REQUEST_CODE)
@@ -52,47 +44,51 @@ class DiaryList : Fragment(), AdapterClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == ADD_REQUEST_CODE || requestCode == EDIT_REQUEST_CODE && resultCode == Activity.RESULT_OK){
-            data?.let{
-                val title = data.getStringExtra(GET_STORY_TITLE)
-                val story = data.getStringExtra(GET_STORY_TEXT)
-
-                stories.add(StoryDataItem(title.toString(), System.currentTimeMillis(),story.toString()))
+        if (requestCode == ADD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            data?.let {
+                val storyID = data.getLongExtra(STORY_ID,0)
+                val story = db.diaryStoriesDao().getItemById(storyID)
+                stories.add(story)
             }
             adapter.notifyDataSetChanged()
+        }else if (requestCode == EDIT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            data?.let {
+                val storyID = data.getLongExtra(STORY_ID,0)
+                val story = db.diaryStoriesDao().getItemById(storyID)
+                val position = stories.indexOfFirst { it.uid == story.uid }
+                stories[position] = story
+            }
+            adapter.notifyDataSetChanged()
+
         }
     }
-
-
 
     override fun itemClicked(story: StoryDataItem) {
 //        Toast.makeText(getActivity(),story.note,Toast.LENGTH_LONG).show()
         val intent = Intent(getActivity(), AddStory::class.java).apply {
             putExtra(REQUEST_CODE, "124")
-            putExtra(SET_STORY_TITLE, story.title)
-            putExtra(SET_STORY_TEXT, story.note)
+            putExtra(STORY_ID, story.uid)
         }
-
         startActivityForResult(intent, EDIT_REQUEST_CODE)
-
     }
+
+    override fun deleteItem(story: StoryDataItem) {
+        db.diaryStoriesDao().delete(story)
+    }
+
 
     companion object {
         const val ADD_REQUEST_CODE = 123
         const val EDIT_REQUEST_CODE = 124
         const val REQUEST_CODE = "lv.zabarovski.martins.TITLE_REPLY"
-        const val GET_STORY_TITLE = "lv.zabarovski.martins.TITLE_REPLY"
-        const val SET_STORY_TITLE = "lv.zabarovski.martins.TITLE_SEND"
-        const val GET_STORY_TEXT = "lv.zabarovski.martins.STORY_REPLY"
-        const val SET_STORY_TEXT = "lv.zabarovski.martins.TEXT_SEND"
+        const val STORY_ID = "lv.zabarovski.martins.STORY_ID"
     }
-
-}
-fun deleteItem(position: Int) {
-    stories.removeAt(position)
 }
 
 interface AdapterClickListener {
     fun itemClicked(story: StoryDataItem)
+
+    fun deleteItem(story: StoryDataItem)
+
 }
 

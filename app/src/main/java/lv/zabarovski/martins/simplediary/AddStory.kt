@@ -6,15 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_add_story.*
-import lv.zabarovski.martins.simplediary.DiaryList.Companion.GET_STORY_TEXT
-import lv.zabarovski.martins.simplediary.DiaryList.Companion.GET_STORY_TITLE
-import lv.zabarovski.martins.simplediary.DiaryList.Companion.ADD_REQUEST_CODE
+import lv.zabarovski.martins.simplediary.Dbase.Database
+import lv.zabarovski.martins.simplediary.Dbase.StoryDataItem
+
 import lv.zabarovski.martins.simplediary.DiaryList.Companion.REQUEST_CODE
-import lv.zabarovski.martins.simplediary.DiaryList.Companion.SET_STORY_TEXT
-import lv.zabarovski.martins.simplediary.DiaryList.Companion.SET_STORY_TITLE
+import lv.zabarovski.martins.simplediary.DiaryList.Companion.STORY_ID
 
 
-class AddStory : AppCompatActivity() {
+class AddStory : AppCompatActivity(){
+    private val db get() = Database.getInstance(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_story)
@@ -24,25 +25,29 @@ class AddStory : AppCompatActivity() {
             updateStoryButton.setOnClickListener{
                 val title = storyTitle.text
                 val story = storyContent.text
+                val newItem =
+                    StoryDataItem(title.toString(), System.currentTimeMillis(), story.toString())
+                newItem.uid = db.diaryStoriesDao().insertAllStories(newItem).first()
                 val result = Intent().apply {
-                putExtra(GET_STORY_TITLE, title.toString())
-                putExtra(GET_STORY_TEXT, story.toString())
+                putExtra(STORY_ID, newItem.uid)
                 }
             setResult(Activity.RESULT_OK,result)
             finish()
             }
         } else {
             updateStoryButton.text = getString(R.string.update_story)
-            val title = intent.getStringExtra(SET_STORY_TITLE)
-            val story = intent.getStringExtra(SET_STORY_TEXT)
-            storyTitle.setText(title)
-            storyContent.setText(story)
+            val storyID = intent.getLongExtra(STORY_ID,0)
+            val story = db.diaryStoriesDao().getItemById(storyID)
+            storyTitle.setText(story.title)
+            storyContent.setText(story.note)
             updateStoryButton.setOnClickListener {
                 val newTitle = storyTitle.text
                 val newStory = storyContent.text
+                db.diaryStoriesDao().update(
+                    story.copy(newTitle.toString(),System.currentTimeMillis(),newStory.toString())
+                )
                 val result = Intent().apply {
-                    putExtra(GET_STORY_TITLE, newTitle.toString())
-                    putExtra(GET_STORY_TEXT, newStory.toString())
+                    putExtra(STORY_ID, story.uid)
                 }
                 setResult(Activity.RESULT_OK,result)
                 finish()

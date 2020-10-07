@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_note.view.*
 import lv.zabarovski.martins.simplediary.Dbase.StoryDataItem
 import java.text.DateFormat
-import java.time.format.DateTimeFormatter
 
 class DiaryRecAdapter (
     private val listener: AdapterClickListener,
@@ -33,10 +32,10 @@ class DiaryRecAdapter (
 
         holder.itemView.setOnClickListener{
             listener.itemClicked(stories[position])
-            deleteItem(position)
         }
         holder.itemView.itemDeleteNote.setOnClickListener {
-            deleteItem(position)
+            listener.deleteItem(stories[position])
+            stories.removeAt(position)
             notifyDataSetChanged()
         }
 

@@ -16,6 +16,16 @@ interface DiaryStoriesDao {
     @Query("SELECT * FROM diary_stories")
     fun getAllStories(): List<StoryDataItem>
 
+    @Query("SELECT * FROM diary_stories WHERE uid = :itemId")
+    fun getItemById(itemId: Long): StoryDataItem
+
     @Insert
     fun insertAllStories(vararg items: StoryDataItem): List<Long>
+
+    @Update
+    fun update(item: StoryDataItem)
+
+
+    @Delete
+    fun delete(item: StoryDataItem)
 }

@@ -13,4 +13,5 @@
     <string name="timer">Timer</string>
     <string name="new_story">Add new Story</string>
     <string name="update_story">Update Story</string>
+    <string name="timer_text">Timer functionality not yet implemented</string>
 </resources>

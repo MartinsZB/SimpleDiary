@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dienasgrāmata</string>
+    <string name="diary_list">Ieraksti</string>
+    <string name="diary_add">Pievienot Ierakstu</string>
+    <string name="itemName">Nosaukums</string>
+    <string name="diary_note_text">Piezīmes</string>
+    <string name="diaryDate">Datums</string>
+    <string name="story_title">Piezīmes nosaukums</string>
+    <string name="story">Piezīme</string>
+    <string name="save_story">Saglabāt piezīmi</string>
+    <string name="story_title_text">Mans dienas ieraksts</string>
+    <string name="story_title_hint">Ieraksti nosaukumu</string>
+    <string name="timer">Taimeris</string>
+    <string name="new_story">Pievienot piezīmi</string>
+    <string name="update_story">Saglabāt piezīmi</string>
+    <string name="timer_text">Taimera funkcijas vēl nav ieviestas</string>
+</resources>
