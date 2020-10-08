@@ -31,11 +31,20 @@ class DiaryList : Fragment(), AdapterClickListener {
         mainDiaryItems.adapter = adapter
         stories.addAll(db.diaryStoriesDao().getAllStories())
         newStoryButton.setOnClickListener { addStory() }
+        newImageButton.setOnClickListener { addImage() }
     }
 
     private fun addStory() {
 
         val intent = Intent(getActivity(), AddStory::class.java).apply {
+            putExtra(REQUEST_CODE, "123")
+        }
+        startActivityForResult(intent, ADD_REQUEST_CODE)
+
+    }
+    private fun addImage() {
+
+        val intent = Intent(getActivity(), AddImage::class.java).apply {
             putExtra(REQUEST_CODE, "123")
         }
         startActivityForResult(intent, ADD_REQUEST_CODE)

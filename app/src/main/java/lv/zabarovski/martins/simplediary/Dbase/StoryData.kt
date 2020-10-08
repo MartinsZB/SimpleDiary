@@ -3,11 +3,20 @@ package lv.zabarovski.martins.simplediary.Dbase
 import androidx.room.*
 import java.time.LocalDateTime
 
+
 @Entity(tableName = "diary_stories")
 data class StoryDataItem(
     val title: String,
     val date: Long,
     val note: String,
+    @PrimaryKey(autoGenerate = true) var uid: Long = 0
+)
+@Entity(tableName = "diary_images")
+data class ImageDataItem(
+    val title: String,
+    val date: Long,
+    val note: String,
+    val image: String,
     @PrimaryKey(autoGenerate = true) var uid: Long = 0
 )
 

@@ -9,5 +9,6 @@
     <dimen name="item_text_margin">8dp</dimen>
     <dimen name="item_name_size">18dp</dimen>
     <dimen name="item_mantisx_distance">18dp</dimen>
+    <dimen name="button_width">200dp</dimen>
 
 </resources>

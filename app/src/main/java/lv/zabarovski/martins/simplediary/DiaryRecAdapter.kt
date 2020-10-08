@@ -29,7 +29,6 @@ class DiaryRecAdapter (
         holder.itemView.itemTitleNote.text = item.title
         holder.itemView.itemTextNote.text = item.note
         holder.itemView.itemDateNote.text = DateFormat.getDateInstance().format(item.date)
-
         holder.itemView.setOnClickListener{
             listener.itemClicked(stories[position])
         }

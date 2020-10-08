@@ -16,4 +16,10 @@
     <string name="update_story">Saglabāt piezīmi</string>
     <string name="timer_text">Taimera funkcijas vēl nav ieviestas</string>
     <string name="send_email">Sūtīt e-pastu</string>
+    <string name="save_image">Saglabāt attēlu</string>
+    <string name="image_title_text">Attēla nosaukums</string>
+    <string name="image_title_hint">Nosauciet attēlu</string>
+    <string name="image_title">Attēla nosaukums</string>
+    <string name="image_note">Attēla teksts</string>
+    <string name="new_image">Saglabāt attēlu</string>
 </resources>

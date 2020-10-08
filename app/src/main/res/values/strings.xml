@@ -15,5 +15,11 @@
     <string name="update_story">Update Story</string>
     <string name="timer_text">Timer functionality not yet implemented</string>
     <string name="send_email">Send by e-mail</string>
+    <string name="save_image">Save Image</string>
+    <string name="image_title_text">Image name</string>
+    <string name="image_title_hint">Name your image card</string>
+    <string name="image_title">Image name</string>
+    <string name="image_note">Image note</string>
+    <string name="new_image">Add new Image</string>
 
 </resources>
