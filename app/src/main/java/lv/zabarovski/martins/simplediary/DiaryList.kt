@@ -45,9 +45,9 @@ class DiaryList : Fragment(), AdapterClickListener {
     private fun addImage() {
 
         val intent = Intent(getActivity(), AddImage::class.java).apply {
-            putExtra(REQUEST_CODE, "123")
+            putExtra(REQUEST_CODE, "126")
         }
-        startActivityForResult(intent, ADD_REQUEST_CODE)
+        startActivityForResult(intent, ADD_REQUEST_IMAGE)
 
     }
 
@@ -68,7 +68,6 @@ class DiaryList : Fragment(), AdapterClickListener {
                 stories[position] = story
             }
             adapter.notifyDataSetChanged()
-
         }
     }
 
@@ -89,6 +88,7 @@ class DiaryList : Fragment(), AdapterClickListener {
     companion object {
         const val ADD_REQUEST_CODE = 123
         const val EDIT_REQUEST_CODE = 124
+        const val ADD_REQUEST_IMAGE = 126
         const val REQUEST_CODE = "lv.zabarovski.martins.TITLE_REPLY"
         const val STORY_ID = "lv.zabarovski.martins.STORY_ID"
     }

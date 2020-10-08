@@ -3,14 +3,14 @@ package lv.zabarovski.martins.simplediary.Dbase
 import androidx.room.*
 import java.time.LocalDateTime
 
-
+sealed class DiaryData
 @Entity(tableName = "diary_stories")
 data class StoryDataItem(
     val title: String,
     val date: Long,
     val note: String,
     @PrimaryKey(autoGenerate = true) var uid: Long = 0
-)
+) : DiaryData()
 @Entity(tableName = "diary_images")
 data class ImageDataItem(
     val title: String,
@@ -18,7 +18,7 @@ data class ImageDataItem(
     val note: String,
     val image: String,
     @PrimaryKey(autoGenerate = true) var uid: Long = 0
-)
+) : DiaryData()
 
 @Dao
 interface DiaryStoriesDao {
@@ -30,6 +30,9 @@ interface DiaryStoriesDao {
 
     @Insert
     fun insertAllStories(vararg items: StoryDataItem): List<Long>
+
+    @Insert
+    fun insertAllImages(vararg items: ImageDataItem): List<Long>
 
     @Update
     fun update(item: StoryDataItem)
